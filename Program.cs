@@ -11,30 +11,34 @@ namespace A15.Math.Convertion {
             int m = baseSystem;
             int n = destinationSystem;
 
-            int decimalNumber = 0;
-            if(baseSystem != 10) {
-                string numbers = number.ToString();
-                int[] heavyNumbers = new int[numbers.Length];
-
-                if(true) {
-                    int i = 0;
-                    int p = numbers.Length - 1;
-                    
-                    while(i < numbers.Length) {
-                        heavyNumbers[i] = System.Convert.ToInt32(System.Math.Pow(baseSystem, p)) * System.Convert.ToInt32(numbers[i].ToString());
-                     
-                        i++;
-                        p--;
-                    }
-                }
-
-                for(int i = 0; i < heavyNumbers.Length; i++) {
-                    decimalNumber += heavyNumbers[i];
-                }
-            } else {
+            int decimalNumber;
+            if(baseSystem != 10)
+                decimalNumber = ConvertToDecimal(baseSystem, number);
+            else
                 decimalNumber = number;
-            }
             
+            return decimalNumber;
+        }
+
+        private static int ConvertToDecimal(int baseSystem, int number) {
+            string numbers = number.ToString();
+            int[] heavyNumbers = new int[numbers.Length];
+
+            int i = 0;
+            int p = numbers.Length - 1;
+
+            while(i < numbers.Length) {
+                heavyNumbers[i] = System.Convert.ToInt32(System.Math.Pow(baseSystem, p)) * System.Convert.ToInt32(numbers[i].ToString());
+                
+                i++;
+                p--;
+            }
+
+            int decimalNumber = 0;
+            for(int s = 0; s < heavyNumbers.Length; s++) {
+                decimalNumber += heavyNumbers[s];
+            }
+
             return decimalNumber;
         }
     }
