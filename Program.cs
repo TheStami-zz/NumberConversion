@@ -16,33 +16,10 @@ namespace A15.Math.Convertion {
             else
                 decimalNumber = number;
 
-            Console.WriteLine(decimalNumber);
-
-            if(destinationSystem != 10) {
-                List<int> rest = new List<int>();
-                while(decimalNumber != 0) {
-                    rest.Add(decimalNumber % destinationSystem);
-                    decimalNumber = decimalNumber / destinationSystem;
-                }
-
-                string[] results = new string[rest.Count];
-                for(int i = 0; i < rest.Count; i++) {
-                    if(rest[i] >= 10) {
-                        results[i] = alpha[rest[i] - 10].ToString();
-                    } else {
-                        results[i] = rest[i].ToString();
-                    }
-                }
-
-                string result = "";
-                for(int i = rest.Count - 1; i >= 0; i--) {
-                    result += results[i];
-                }
-
-                return result;
-            } else {
+            if(destinationSystem != 10)
+                return ConvertFromDecimalToAny(decimalNumber, destinationSystem);
+            else 
                 return decimalNumber.ToString();
-            }
         }
 
         private static int ConvertToDecimal(int baseSystem, int number) {
@@ -65,6 +42,30 @@ namespace A15.Math.Convertion {
             }
 
             return decimalNumber;
+        }
+
+        private static string ConvertFromDecimalToAny(int decimalNumber, int destinationSystem) {
+            List<int> rest = new List<int>();
+            while(decimalNumber != 0) {
+                rest.Add(decimalNumber % destinationSystem);
+                decimalNumber = decimalNumber / destinationSystem;
+            }
+
+            string[] results = new string[rest.Count];
+            for(int i = 0; i < rest.Count; i++) {
+                if(rest[i] >= 10) {
+                    results[i] = alpha[rest[i] - 10].ToString();
+                } else {
+                    results[i] = rest[i].ToString();
+                }
+            }
+
+            string result = "";
+            for(int i = rest.Count - 1; i >= 0; i--) {
+                result += results[i];
+            }
+
+            return result;
         }
     }
 }
