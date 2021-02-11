@@ -1,23 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace A15.Math.Convertion {
     class NumberConvertion {
+        private static readonly char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+
         static void Main(string[] args) {
-            Console.WriteLine(Convert(2, 0, 110));
+            Console.WriteLine(Convert(18, 34, 321));
         }
 
-        public static int Convert(int baseSystem, int destinationSystem, int number) {
-            int a = number;
-            int m = baseSystem;
-            int n = destinationSystem;
-
+        public static string Convert(int baseSystem, int destinationSystem, int number) {
             int decimalNumber;
             if(baseSystem != 10)
                 decimalNumber = ConvertToDecimal(baseSystem, number);
             else
                 decimalNumber = number;
-            
-            return decimalNumber;
+
+            Console.WriteLine(decimalNumber);
+
+            if(destinationSystem != 10) {
+                List<int> rest = new List<int>();
+                while(decimalNumber != 0) {
+                    rest.Add(decimalNumber % destinationSystem);
+                    decimalNumber = decimalNumber / destinationSystem;
+                }
+
+                string[] results = new string[rest.Count];
+                for(int i = 0; i < rest.Count; i++) {
+                    if(rest[i] >= 10) {
+                        results[i] = alpha[rest[i] - 10].ToString();
+                    } else {
+                        results[i] = rest[i].ToString();
+                    }
+                }
+
+                string result = "";
+                for(int i = rest.Count - 1; i >= 0; i--) {
+                    result += results[i];
+                }
+
+                return result;
+            } else {
+                return decimalNumber.ToString();
+            }
         }
 
         private static int ConvertToDecimal(int baseSystem, int number) {
