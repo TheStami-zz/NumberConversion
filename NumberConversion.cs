@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace A15.Math.Convertion {
-    class NumberConvertion {
+namespace A15.Math.Conversion {
+    public class NumberConversion {
         private static readonly char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
         public static string Convert(uint baseSystem, uint destinationSystem, uint number) =>
