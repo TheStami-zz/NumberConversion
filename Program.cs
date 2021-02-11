@@ -6,10 +6,19 @@ namespace A15.Math.Convertion {
         private static readonly char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
         static void Main(string[] args) {
-            Console.WriteLine(Convert(18, 34, 321));
+            Console.WriteLine(Convert(21, 21, 11));
         }
 
-        public static string Convert(int baseSystem, int destinationSystem, int number) {
+        public static string Convert(uint baseSystem, uint destinationSystem, uint number) =>
+            Convert(System.Convert.ToInt32(baseSystem), System.Convert.ToInt32(destinationSystem), System.Convert.ToInt32(number));
+        private static string Convert(int baseSystem, int destinationSystem, int number) {
+            if(baseSystem == 0 || destinationSystem == 0)
+                throw new ArgumentException("Number System connot be zero");
+            if(number == 0) 
+                return "0";
+            if(baseSystem == destinationSystem)
+                return number.ToString();
+
             int decimalNumber;
             if(baseSystem != 10)
                 decimalNumber = ConvertToDecimal(baseSystem, number);
