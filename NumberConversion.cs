@@ -5,10 +5,6 @@ namespace A15.Math.Conversion {
     public class NumberConversion {
         private static readonly char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
-        static void Main(string[] args) {
-            Console.WriteLine(Convert(2, 10, "010011010101101101010001010100010011010001001010"));
-        }
-
         public static string Convert(uint baseSystem, uint destinationSystem, string number) =>
             Convert(System.Convert.ToInt32(baseSystem), System.Convert.ToInt32(destinationSystem), number);
         private static string Convert(int baseSystem, int destinationSystem, string number) {
