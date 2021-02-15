@@ -35,7 +35,6 @@ namespace A15.Math.Conversion {
             int p = numbers.Length - 1;
 
             while(i < numbers.Length) {
-                Console.WriteLine(baseSystem + "^" + p  + " --> " + System.Math.Pow(baseSystem, p) + " * " + numbers[i].ToString());
                 heavyNumbers[i] = System.Convert.ToInt64(System.Math.Pow(baseSystem, p)) * System.Convert.ToInt64(numbers[i].ToString());
                 
                 i++;
