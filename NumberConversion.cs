@@ -5,21 +5,25 @@ namespace A15.Math.Conversion {
     public class NumberConversion {
         private static readonly char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
-        public static string Convert(uint baseSystem, uint destinationSystem, uint number) =>
-            Convert(System.Convert.ToInt32(baseSystem), System.Convert.ToInt32(destinationSystem), System.Convert.ToInt32(number));
-        private static string Convert(int baseSystem, int destinationSystem, int number) {
+        static void Main(string[] args) {
+            Console.WriteLine(Convert(2, 10, "010011010101101101010001010100010011010001001010"));
+        }
+
+        public static string Convert(uint baseSystem, uint destinationSystem, string number) =>
+            Convert(System.Convert.ToInt32(baseSystem), System.Convert.ToInt32(destinationSystem), number);
+        private static string Convert(int baseSystem, int destinationSystem, string number) {
             if(baseSystem == 0 || destinationSystem == 0)
                 throw new ArgumentException("Number System connot be zero");
-            if(number == 0) 
+            if(number == "0") 
                 return "0";
             if(baseSystem == destinationSystem)
                 return number.ToString();
 
-            int decimalNumber;
+            long decimalNumber;
             if(baseSystem != 10)
                 decimalNumber = ConvertToDecimal(baseSystem, number);
             else
-                decimalNumber = number;
+                decimalNumber = System.Convert.ToInt32(number);
 
             if(destinationSystem != 10)
                 return ConvertFromDecimalToAny(decimalNumber, destinationSystem);
@@ -27,21 +31,22 @@ namespace A15.Math.Conversion {
                 return decimalNumber.ToString();
         }
 
-        private static int ConvertToDecimal(int baseSystem, int number) {
+        private static long ConvertToDecimal(int baseSystem, string number) {
             string numbers = number.ToString();
-            int[] heavyNumbers = new int[numbers.Length];
+            long[] heavyNumbers = new long[numbers.Length];
 
             int i = 0;
             int p = numbers.Length - 1;
 
             while(i < numbers.Length) {
-                heavyNumbers[i] = System.Convert.ToInt32(System.Math.Pow(baseSystem, p)) * System.Convert.ToInt32(numbers[i].ToString());
+                Console.WriteLine(baseSystem + "^" + p  + " --> " + System.Math.Pow(baseSystem, p) + " * " + numbers[i].ToString());
+                heavyNumbers[i] = System.Convert.ToInt64(System.Math.Pow(baseSystem, p)) * System.Convert.ToInt64(numbers[i].ToString());
                 
                 i++;
                 p--;
             }
 
-            int decimalNumber = 0;
+            long decimalNumber = 0;
             for(int s = 0; s < heavyNumbers.Length; s++) {
                 decimalNumber += heavyNumbers[s];
             }
@@ -49,8 +54,8 @@ namespace A15.Math.Conversion {
             return decimalNumber;
         }
 
-        private static string ConvertFromDecimalToAny(int decimalNumber, int destinationSystem) {
-            List<int> rest = new List<int>();
+        private static string ConvertFromDecimalToAny(long decimalNumber, int destinationSystem) {
+            List<long> rest = new List<long>();
             while(decimalNumber != 0) {
                 rest.Add(decimalNumber % destinationSystem);
                 decimalNumber = decimalNumber / destinationSystem;
